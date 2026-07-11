@@ -1,5 +1,5 @@
 import sys
-from threatsentry.logger import logger
+from threatsentry.logger.logger import logger
 
 
 class ThreatDetectionException(Exception):
