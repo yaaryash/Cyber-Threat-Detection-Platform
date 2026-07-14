@@ -1,8 +1,3 @@
-"""
-Data Ingestion Component
-Pulls phishing data from MongoDB, saves to feature store,
-and splits into train/test sets.
-"""
 import os
 import sys
 import numpy as np
@@ -21,7 +16,6 @@ from threatsentry.entity.config_entity import DataIngestionConfig
 from threatsentry.entity.artifact_entity import DataIngestionArtifact
 
 MONGO_DB_URI = os.getenv("MONGO_DB_URI")
-
 
 class DataIngestion:
     """
