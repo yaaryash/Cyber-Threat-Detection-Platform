@@ -42,7 +42,7 @@ class DataValidation:
 
     def validate_number_of_columns(self, dataframe: pd.DataFrame) -> bool:
         try:
-            number_of_columns = len(self._schema_config)
+            number_of_columns = len(self._schema_config["columns"])
             logger.info(f"Required number of columns: {number_of_columns}")
             logger.info(f"DataFrame has columns: {len(dataframe.columns)}")
             if len(dataframe.columns) == number_of_columns:
