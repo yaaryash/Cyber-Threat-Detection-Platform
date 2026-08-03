@@ -6,9 +6,11 @@ Add stages one by one as they are built.
 import sys
 
 from threatsentry.components.data_ingestion import DataIngestion
+from threatsentry.components.data_validation import DataValidation
 from threatsentry.entity.config_entity import (
     TrainingPipelineConfig,
-    DataIngestionConfig
+    DataIngestionConfig,
+    DataValidationConfig
 )
 from threatsentry.exception.exception import ThreatDetectionException
 from threatsentry.logger.logger import logger
@@ -28,7 +30,13 @@ if __name__ == '__main__':
         data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
         logger.info(f"Data Ingestion Artifact: {data_ingestion_artifact}")
 
-        # Step 2 — Data Validation (coming soon)
+        # Step 2 — Data Validation
+        logger.info("Stage 2: Data Validation")
+        data_validation_config = DataValidationConfig(training_pipeline_config)
+        data_validation = DataValidation(data_ingestion_artifact, data_validation_config)
+        data_validation_artifact = data_validation.initiate_data_validation()
+        logger.info(f"Data Validation complete — {data_validation_artifact}")
+
         # Step 3 — Data Transformation (coming soon)
         # Step 4 — Model Training (coming soon)
 
