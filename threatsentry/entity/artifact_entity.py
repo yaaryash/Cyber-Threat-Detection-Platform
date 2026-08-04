@@ -28,3 +28,14 @@ class DataValidationArtifact:
     invalid_train_file_path: str  
     invalid_test_file_path: str     
     drift_report_file_path: str
+
+@dataclass
+class DataTransformationArtifact:
+    """
+    Output of Data Transformation stage.
+    Tells Model Trainer where transformed numpy arrays
+    and the fitted preprocessor pickle are saved.
+    """
+    transformed_object_file_path: str
+    transformed_train_file_path: str
+    transformed_test_file_path: str
