@@ -7,10 +7,12 @@ import sys
 
 from threatsentry.components.data_ingestion import DataIngestion
 from threatsentry.components.data_validation import DataValidation
+from threatsentry.components.data_transformation import DataTransformation
 from threatsentry.entity.config_entity import (
     TrainingPipelineConfig,
     DataIngestionConfig,
-    DataValidationConfig
+    DataValidationConfig,
+    DataTransformationConfig
 )
 from threatsentry.exception.exception import ThreatDetectionException
 from threatsentry.logger.logger import logger
@@ -22,7 +24,7 @@ if __name__ == '__main__':
         logger.info("Training Pipeline Started")
         logger.info("=" * 50)
 
-        # Step 1 — Data Ingestion
+        # Stage 1 — Data Ingestion
         logger.info("Stage 1: Data Ingestion")
         training_pipeline_config = TrainingPipelineConfig()
         data_ingestion_config = DataIngestionConfig(training_pipeline_config)
@@ -30,14 +32,20 @@ if __name__ == '__main__':
         data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
         logger.info(f"Data Ingestion Artifact: {data_ingestion_artifact}")
 
-        # Step 2 — Data Validation
+        # Stage 2 — Data Validation
         logger.info("Stage 2: Data Validation")
         data_validation_config = DataValidationConfig(training_pipeline_config)
         data_validation = DataValidation(data_ingestion_artifact, data_validation_config)
         data_validation_artifact = data_validation.initiate_data_validation()
         logger.info(f"Data Validation complete — {data_validation_artifact}")
 
-        # Step 3 — Data Transformation (coming soon)
+        # Stage 3 — Data Transformation
+        logger.info("Stage 3: Data Transformation")
+        data_transformation_config = DataTransformationConfig(training_pipeline_config)
+        data_transformation = DataTransformation(data_validation_artifact, data_transformation_config)
+        data_transformation_artifact = data_transformation.initiate_data_transformation()
+        logger.info(f"Data Transformation complete — {data_transformation_artifact}")
+        
         # Step 4 — Model Training (coming soon)
 
         logger.info("Pipeline run complete")

@@ -35,6 +35,8 @@ DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
 DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
 DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
 DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+PREPROCESSING_OBJECT_FILE_NAME: str = "preprocessor.pkl"
+MODEL_FILE_NAME: str = "model.pkl"
 
 # KNN Imputer params — fills missing values using 3 nearest neighbors
 # We use KNN instead of simple mean/median because phishing features

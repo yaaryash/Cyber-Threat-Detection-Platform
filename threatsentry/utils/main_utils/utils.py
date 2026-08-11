@@ -3,6 +3,7 @@ from threatsentry.exception.exception import ThreatDetectionException
 from threatsentry.logger.logger import logger
 import os,sys
 import numpy as np
+import pickle
 
 """
 Utility functions used across the entire pipeline.
