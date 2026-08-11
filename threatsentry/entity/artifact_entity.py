@@ -39,3 +39,25 @@ class DataTransformationArtifact:
     transformed_object_file_path: str
     transformed_train_file_path: str
     transformed_test_file_path: str
+    
+@dataclass
+class ClassificationMetricArtifact:
+    """
+    Stores F1, Precision, Recall for one model evaluation.
+    Tracked separately for train and test to detect overfitting.
+    """
+    f1_score: float
+    precision_score: float
+    recall_score: float
+
+
+@dataclass
+class ModelTrainerArtifact:
+    """
+    Output of Model Trainer stage.
+    Contains path to saved model and
+    metrics for both train and test sets.
+    """
+    trained_model_file_path: str
+    train_metric_artifact: ClassificationMetricArtifact
+    test_metric_artifact: ClassificationMetricArtifact
