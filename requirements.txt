@@ -7,5 +7,7 @@ certifi
 pyaml
 scikit-learn
 xgboost
+mlflow
+dagshub
 
 ##-e .
