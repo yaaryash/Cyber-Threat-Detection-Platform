@@ -103,7 +103,23 @@ class ModelTrainer:
             best_model_name = max(model_report, key=model_report.get)
             best_model = models[best_model_name]
 
+            logger.info("=" * 40)
+            logger.info("All Model Results:")
+            logger.info("=" * 40)
+
+            for model_name, model in models.items():
+                y_pred = model.predict(X_test)
+                metric = get_classification_score(y_true=y_test, y_pred=y_pred)
+                logger.info(
+                    f"{model_name:<25} | "
+                    f"F1: {metric.f1_score:.4f} | "
+                    f"Precision: {metric.precision_score:.4f} | "
+                    f"Recall: {metric.recall_score:.4f}"
+                )
+
+            logger.info("=" * 40)
             logger.info(f"Best model: {best_model_name} | Score: {best_model_score:.4f}")
+            logger.info("=" * 40)
 
             # Check if model meets minimum expected accuracy
             if best_model_score < self.model_trainer_config.expected_accuracy:

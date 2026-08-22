@@ -34,28 +34,31 @@ CI/CD via GitHub Actions → Docker → AWS ECR → EC2
 
 ## 🧰 Tech Stack
 
-| Layer | Tools Used |
-|---|---|
-| Data Storage | MongoDB Atlas |
-| ML Models | Scikit-learn, XGBoost |
-| Experiment Tracking | MLflow + DagsHub |
-| API | FastAPI |
-| Containerization | Docker |
-| Cloud Infrastructure | AWS S3, ECR, EC2 |
-| CI/CD | GitHub Actions |
+| Layer                | Tools Used            |
+| -------------------- | --------------------- |
+| Data Storage         | MongoDB Atlas         |
+| ML Models            | Scikit-learn, XGBoost |
+| Experiment Tracking  | MLflow + DagsHub      |
+| API                  | FastAPI               |
+| Containerization     | Docker                |
+| Cloud Infrastructure | AWS S3, ECR, EC2      |
+| CI/CD                | GitHub Actions        |
 
 ---
 
 ## 📊 Model Performance
-<!-- Will be updated after training runs -->
 
-| Model | F1 Score | Precision | Recall |
-|---|---|---|---|
-| XGBoost | -- | -- | -- |
-| Random Forest | -- | -- | -- |
-| Gradient Boosting | -- | -- | -- |
-| Decision Tree | -- | -- | -- |
-| Logistic Regression | -- | -- | -- |
+| Model               | F1 Score   | Precision  | Recall     |
+| ------------------- | ---------- | ---------- | ---------- |
+| **XGBoost** ⭐      | **0.9756** | **0.9649** | **0.9865** |
+| Random Forest       | 0.9675     | 0.9622     | 0.9729     |
+| Decision Tree       | 0.9675     | 0.9636     | 0.9713     |
+| Gradient Boosting   | 0.9672     | 0.9585     | 0.9761     |
+| AdaBoost            | 0.9369     | 0.9169     | 0.9578     |
+| Logistic Regression | 0.9339     | 0.9283     | 0.9394     |
+
+> XGBoost selected as best model — highest F1 (0.9756) with lowest overfitting gap
+> Train F1: 0.9901 vs Test F1: 0.9756 — difference of 0.014 ✅
 
 ---
 
