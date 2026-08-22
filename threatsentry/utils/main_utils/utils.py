@@ -5,6 +5,9 @@ import os,sys
 import numpy as np
 import pickle
 
+from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
+
 """
 Utility functions used across the entire pipeline.
 All generic reusable code lives here
@@ -82,3 +85,37 @@ def load_object(file_path: str) -> object:
             return pickle.load(file_obj)
     except Exception as e:
         raise ThreatDetectionException(e, sys) from e
+
+def evaluate_models(X_train, y_train, X_test, y_test,
+                    models: dict, param: dict) -> dict:
+    """
+    Trains and evaluates multiple models using GridSearchCV.
+    Returns a dictionary of model name → test score.
+    Used in model trainer to find the best performing model.
+    """
+    try:
+        report = {}
+
+        for model_name, model in models.items():
+            logger.info(f"Training: {model_name}")
+
+            model_params = param[model_name]
+            gs = GridSearchCV(model, model_params, cv=3)
+            gs.fit(X_train, y_train)
+
+            model.set_params(**gs.best_params_)
+            model.fit(X_train, y_train)
+
+            y_train_pred = model.predict(X_train)
+            y_test_pred = model.predict(X_test)
+
+            train_score = r2_score(y_train, y_train_pred)
+            test_score = r2_score(y_test, y_test_pred)
+
+            logger.info(f"{model_name} — Train: {train_score:.4f} | Test: {test_score:.4f}")
+            report[model_name] = test_score
+
+        return report
+
+    except Exception as e:
+        raise ThreatDetectionException(e, sys)

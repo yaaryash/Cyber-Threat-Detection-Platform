@@ -8,11 +8,13 @@ import sys
 from threatsentry.components.data_ingestion import DataIngestion
 from threatsentry.components.data_validation import DataValidation
 from threatsentry.components.data_transformation import DataTransformation
+from threatsentry.components.model_trainer import ModelTrainer
 from threatsentry.entity.config_entity import (
     TrainingPipelineConfig,
     DataIngestionConfig,
     DataValidationConfig,
-    DataTransformationConfig
+    DataTransformationConfig,
+    ModelTrainerConfig,
 )
 from threatsentry.exception.exception import ThreatDetectionException
 from threatsentry.logger.logger import logger
@@ -46,7 +48,19 @@ if __name__ == '__main__':
         data_transformation_artifact = data_transformation.initiate_data_transformation()
         logger.info(f"Data Transformation complete — {data_transformation_artifact}")
         
-        # Step 4 — Model Training (coming soon)
+        # Stage 4 — Model Training
+        logger.info("Stage 4: Model Training")
+        model_trainer_config = ModelTrainerConfig(training_pipeline_config)
+        model_trainer = ModelTrainer(
+            model_trainer_config=model_trainer_config,
+            data_transformation_artifact=data_transformation_artifact
+        )
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
+        logger.info(f"Model Training complete — {model_trainer_artifact}")
+
+        logger.info("=" * 50)
+        logger.info("Pipeline run complete")
+        logger.info("=" * 50)
 
         logger.info("Pipeline run complete")
 
