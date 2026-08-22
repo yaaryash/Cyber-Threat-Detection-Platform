@@ -57,3 +57,28 @@ def save_object(file_path: str, obj: object) -> None:
         logger.info(f"Object saved successfully")
     except Exception as e:
         raise ThreatDetectionException(e, sys) from e
+    
+def load_numpy_array_data(file_path: str) -> np.ndarray:
+    """
+    Loads a numpy array from a .npy file.
+    Used in model trainer to load transformed data.
+    """
+    try:
+        with open(file_path, "rb") as file_obj:
+            return np.load(file_obj)
+    except Exception as e:
+        raise ThreatDetectionException(e, sys) from e
+
+
+def load_object(file_path: str) -> object:
+    """
+    Loads a pickle file and returns the object.
+    Used to load model and preprocessor at inference time.
+    """
+    try:
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"File not found: {file_path}")
+        with open(file_path, "rb") as file_obj:
+            return pickle.load(file_obj)
+    except Exception as e:
+        raise ThreatDetectionException(e, sys) from e
